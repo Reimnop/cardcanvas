@@ -38,12 +38,6 @@ export class NativeImage implements NativeObject {
   }
 
   free(): void {
-    if (this.ptr === 0) {
-      return;
-    }
-
     releaseNativeObject(this.wasm, this);
-    this.wasm.exports.free(this.ptr);
-    this.ptr = 0; // prevent double free
   }
 }
