@@ -1,5 +1,4 @@
 #include "encoding.h"
-#include <stdint.h>
 
 static uint32_t calculate_border_usable_pixel_count(uint32_t pxPerCu) {
   uint32_t borderDimension = DIMENSION_IN_CU - BORDER_MARGIN * 2;
