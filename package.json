@@ -1,0 +1,33 @@
+{
+  "name": "cardcanvas",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./*": {
+      "import": "./dist/*.js",
+      "types": "./dist/*.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/**/*.ts --format esm --dts --splitting --out-dir dist",
+    "demo": "tsx demo/index.ts",
+    "gen-wasm-module": "tsx util/gen-wasm-module.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.3",
+    "sharp": "^0.35.1",
+    "tsup": "^8.5.1",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}
