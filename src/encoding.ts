@@ -38,7 +38,7 @@ export async function decodeCardData(image: NativeImage): Promise<Uint8Array> {
 
   wasm.exports.encoding_decode_card_data(image.ptr, image.width, outputPtr + 4, outputPtr);
 
-  const outputLen = wasm.memoryView.getUint32(outputPtr, true);
+  const outputLen = wasm.getMemoryView().getUint32(outputPtr, true);
   const result = new Uint8Array(wasm.exports.memory.buffer, outputPtr + 4, outputLen).slice();
 
   wasm.exports.free(outputPtr);

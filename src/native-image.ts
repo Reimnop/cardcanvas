@@ -27,13 +27,13 @@ export class NativeImage implements NativeObject {
   }
 
   getPixel(x: number, y: number): Color {
-    const packed = this.wasm.memoryView.getUint32(this.ptr + (y * this.width + x) * 4, true);
+    const packed = this.wasm.getMemoryView().getUint32(this.ptr + (y * this.width + x) * 4, true);
     return unpackColor(packed);
   }
 
   setPixel(x: number, y: number, color: Color): void {
     const packed = packColor(color);
-    this.wasm.memoryView.setUint32(this.ptr + (y * this.width + x) * 4, packed, true);
+    this.wasm.getMemoryView().setUint32(this.ptr + (y * this.width + x) * 4, packed, true);
   }
 
   asUint32Array(): Uint32Array {

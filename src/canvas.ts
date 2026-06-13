@@ -73,9 +73,10 @@ export class Canvas implements NativeObject {
     // allocate two uint32s for out params
     const outPtr = this.wasm.exports.malloc(8);
     this.wasm.exports.canvas_calculate_text_rect_size(length, size, outPtr, outPtr + 4);
+    const memoryView = this.wasm.getMemoryView();
     const result = { 
-      width: this.wasm.memoryView.getUint32(outPtr, true), 
-      height: this.wasm.memoryView.getUint32(outPtr + 4, true) 
+      width: memoryView.getUint32(outPtr, true), 
+      height: memoryView.getUint32(outPtr + 4, true) 
     };
     this.wasm.exports.free(outPtr);
     return result;
