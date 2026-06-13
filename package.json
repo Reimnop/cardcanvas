@@ -1,6 +1,6 @@
 {
   "name": "cardcanvas",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Canvas rendering library for Afterbeat prefab cards",
   "license": "MIT",
   "repository": {
