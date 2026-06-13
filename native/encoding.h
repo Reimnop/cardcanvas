@@ -2,7 +2,6 @@
 #define ENCODING_H
 
 #include <stdint.h>
-#include <stdint.h>
 #include <stdbool.h>
 
 #include "color.h"
