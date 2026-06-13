@@ -34,15 +34,13 @@ export async function decodeCardData(image: NativeImage): Promise<Uint8Array> {
   // alloc output buffer
   const pxPerCu = image.width / 256;
   const capacity = wasm.exports.encoding_calculate_total_capacity(pxPerCu);
-  const outputPtr = wasm.exports.malloc(capacity);
-  const outputLenPtr = wasm.exports.malloc(4);
+  const outputPtr = wasm.exports.malloc(capacity + 4); // +4 for output length
 
-  wasm.exports.encoding_decode_card_data(image.ptr, image.width, outputPtr, outputLenPtr);
+  wasm.exports.encoding_decode_card_data(image.ptr, image.width, outputPtr + 4, outputPtr);
 
-  const outputLen = new Uint32Array(wasm.exports.memory.buffer, outputLenPtr, 1)[0];
-  const result = new Uint8Array(wasm.exports.memory.buffer, outputPtr, outputLen).slice();
+  const outputLen = wasm.memoryView.getUint32(outputPtr, true);
+  const result = new Uint8Array(wasm.exports.memory.buffer, outputPtr + 4, outputLen).slice();
 
   wasm.exports.free(outputPtr);
-  wasm.exports.free(outputLenPtr);
   return result;
 }

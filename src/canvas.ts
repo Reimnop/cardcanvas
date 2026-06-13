@@ -1,8 +1,7 @@
-import type { WasmInstance } from "./wasm";
 import type { NativeImage } from "./native-image";
 import { type Color, packColor } from "./color";
 import { allocNativeString, freeNativeString } from "./native-string";
-import { getInstance } from "./loader";
+import { getInstance, type WasmInstance } from "./loader";
 import type { NativeObject, Pointer } from "./native-object";
 import { registerNativeObject, releaseNativeObject } from "./memory-manager";
 
@@ -74,8 +73,10 @@ export class Canvas implements NativeObject {
     // allocate two uint32s for out params
     const outPtr = this.wasm.exports.malloc(8);
     this.wasm.exports.canvas_calculate_text_rect_size(length, size, outPtr, outPtr + 4);
-    const view = new Uint32Array(this.wasm.exports.memory.buffer, outPtr, 2);
-    const result = { width: view[0], height: view[1] };
+    const result = { 
+      width: this.wasm.memoryView.getUint32(outPtr, true), 
+      height: this.wasm.memoryView.getUint32(outPtr + 4, true) 
+    };
     this.wasm.exports.free(outPtr);
     return result;
   }

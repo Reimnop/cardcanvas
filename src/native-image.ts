@@ -1,6 +1,5 @@
-import { getInstance } from "./loader";
-import { type Color, unpackColor } from "./color";
-import type { WasmInstance } from "./wasm";
+import { getInstance, type WasmInstance } from "./loader";
+import { type Color, packColor, unpackColor } from "./color";
 import type { NativeObject, Pointer } from "./native-object";
 import { registerNativeObject, releaseNativeObject } from "./memory-manager";
 
@@ -28,9 +27,13 @@ export class NativeImage implements NativeObject {
   }
 
   getPixel(x: number, y: number): Color {
-    const view = new Uint32Array(this.wasm.exports.memory.buffer);
-    const packed = view[this.ptr / 4 + y * this.width + x];
+    const packed = this.wasm.memoryView.getUint32(this.ptr + (y * this.width + x) * 4, true);
     return unpackColor(packed);
+  }
+
+  setPixel(x: number, y: number, color: Color): void {
+    const packed = packColor(color);
+    this.wasm.memoryView.setUint32(this.ptr + (y * this.width + x) * 4, packed, true);
   }
 
   asUint32Array(): Uint32Array {

@@ -1,5 +1,5 @@
+import type { WasmInstance } from "./loader";
 import type { Pointer } from "./native-object";
-import type { WasmInstance } from "./wasm";
 
 export interface NativeString {
   ptr: Pointer;

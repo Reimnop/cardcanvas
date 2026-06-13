@@ -1,5 +1,5 @@
+import type { WasmInstance } from "./loader";
 import type { NativeObject, Pointer } from "./native-object";
-import type { WasmInstance } from "./wasm";
 
 let finalizationRegistry: FinalizationRegistry<Pointer> | null = null;
 

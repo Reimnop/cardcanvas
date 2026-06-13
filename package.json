@@ -19,9 +19,10 @@
     }
   },
   "scripts": {
-    "build": "tsup src/**/*.ts --format esm --dts --splitting --out-dir dist",
-    "demo": "tsx demo/index.ts",
-    "gen-wasm-module": "tsx util/gen-wasm-module.ts"
+    "build:wasm": "tsx util/build-wasm.ts",
+    "build:js": "tsup src/**/*.ts --format esm --dts --splitting --out-dir dist",
+    "build": "npm run build:wasm && npm run build:js",
+    "demo": "tsx demo/index.ts"
   },
   "devDependencies": {
     "@types/node": "^25.9.3",
