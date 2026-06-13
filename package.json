@@ -1,18 +1,20 @@
 {
   "name": "cardcanvas",
   "version": "1.0.0",
-  "description": "",
+  "description": "Canvas rendering library for Afterbeat prefab cards",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Reimnop/cardcanvas"
+  },
+  "author": {
+    "name": "Reimnop"
+  },
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
     "./*": {
       "import": "./dist/*.js",
       "types": "./dist/*.d.ts"
